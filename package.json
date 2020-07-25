@@ -1,0 +1,127 @@
+{
+    "name": "innovativeGroupRegistry",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "axios": "^0.19.0",
+        "immutability-helper": "^3.0.1",
+        "jss-plugin-default-unit": "^10.0.0-alpha.7",
+        "jss-preset-default": "^10.0.0",
+        "react": "^16.9.0",
+        "react-dom": "^16.9.0",
+        "react-jss": "^10.0.0-alpha.24",
+        "react-redux": "^7.1.0",
+        "react-router-dom": "^5.0.1",
+        "react-shadow-dom-retarget-events": "^1.0.10",
+        "react-spring": "^8.0.27",
+        "redux": "^4.0.4",
+        "redux-logger": "^3.0.6",
+        "redux-thunk": "^2.3.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.5.5",
+        "@babel/plugin-proposal-decorators": "^7.4.4",
+        "@babel/plugin-transform-runtime": "^7.5.5",
+        "@babel/polyfill": "^7.8.3",
+        "@babel/preset-env": "^7.5.5",
+        "@babel/preset-react": "^7.0.0",
+        "@babel/register": "^7.5.5",
+        "ava": "^2.3.0",
+        "babel-eslint": "^10.0.2",
+        "babel-loader": "^8.0.6",
+        "babel-plugin-module-resolver": "^4.0.0",
+        "eslint": "^6.2.1",
+        "eslint-plugin-react": "^7.17.0",
+        "html-webpack-plugin": "^3.2.0",
+        "minimist": "^1.2.0",
+        "moment": "^2.24.0",
+        "nyc": "^15.1.0",
+        "react-test-renderer": "^16.13.0",
+        "redux-devtools-extension": "^2.13.8",
+        "webpack": "^4.39.2",
+        "webpack-cli": "^3.3.7",
+        "webpack-dev-server": "^3.8.0",
+        "webpack-merge": "^4.2.1"
+    },
+    "scripts": {
+        "local": "webpack-dev-server --watch --mode=development --inline --progress --hot --config webpack/local.js",
+        "developer": "webpack --inline --progress --config webpack/base.js --mode development",
+        "production": "webpack --config webpack/base.js",
+        "linter": "eslint src/ --ext .js --ext .jsx",
+        "test": "ava --reset-cache && nyc ava",
+        "update-snapshots": "ava --reset-cache && ava --update-snapshots",
+        "test-development": "ava --reset-cache && ava --watch"
+    },
+    "author": "ProIt",
+    "license": "Commercial software",
+    "ava": {
+        "files": [
+            "src/**/*.test.js"
+        ],
+        "snapshotDir": "__snapshots__",
+        "extensions": [
+            "jsx"
+        ],
+        "require": [
+            "@babel/core",
+            "@babel/polyfill",
+            "@babel/register"
+        ],
+        "babel": {
+            "testOptions": {
+                "presets": [
+                    "@babel/preset-react",
+                    "@babel/preset-env"
+                ],
+                "plugins": [
+                    "@babel/plugin-transform-runtime"
+                ]
+            }
+        }
+    },
+    "nyc": {
+        "all": true,
+        "check-coverage": true,
+        "branches": 100,
+        "lines": 100,
+        "functions": 100,
+        "statements": 100,
+        "include": [
+            "src/**/*.js",
+            "src/**/*.jsx"
+        ],
+        "exclude": [
+            "src/**/*.test.js",
+            "src/**/index.js",
+            "src/app.jsx",
+            "src/store.js"
+        ]
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env",
+            "@babel/preset-react"
+        ],
+        "plugins": [
+            "@babel/plugin-transform-runtime",
+            [
+                "@babel/plugin-proposal-decorators",
+                {
+                    "decoratorsBeforeExport": true
+                }
+            ],
+            [
+                "module-resolver",
+                {
+                    "alias": {
+                        "^WebComponent(.*)": "./src/wrappers\\1",
+                        "^Component(.*)": "./src/components\\1",
+                        "^Action(.*)": "./src/actions\\1",
+                        "^Api(.*)": "./src/apis\\1"
+                    }
+                }
+            ]
+        ]
+    }
+}
